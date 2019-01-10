@@ -40,7 +40,7 @@ Full instructions
 Real-Time Messaging API vs. Events API
 --------------------------------------
 
-By default, this bot uses the Slack Real-Time Messaging API to listen and respond to messages. If your bot is running on a Heroku free-tier dyno, this will not work, as the API relies on persistent websockets. Instead, you may use the more traditional Events API, which uses HTTP requests that can wake up your dyno. Simply modify the proper values in `config.js` to enable this.
+By default, this bot uses the Slack Events API to listen to messages. This allows the bot to work on free-tier Heroku dynos, for example, because it uses HTTP requests rather than websockets. If you have a persistent server and would like to use the Slack Real-Time Messaging API instead, set the `USE_RTM` environment variable (to anything).
 
 Development
 -----------
