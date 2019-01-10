@@ -3,9 +3,11 @@
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
-Simple slackbot for responding to messages matching a Piazza post number.
+Simple slackbot for responding to messages containing a Piazza post number.
 
 Based on [regexbot](https://github.com/sjmelia/regexbot) by sjmelia.
+
+![Example image](https://i.gyazo.com/3fbcb71b81845b5ca65cef08af1334d8.png)
 
 Full instructions
 -----
