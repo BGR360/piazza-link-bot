@@ -1,17 +1,40 @@
 `piazza-link-bot`: slackbot to auto-link to Piazza posts
 ==============================================
 
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+
 Simple slackbot for responding to messages matching a Piazza post number.
 
 Based on [regexbot](https://github.com/sjmelia/regexbot) by sjmelia.
 
-Setup
+Full instructions
 -----
 
-1. Create a [new bot user](https://my.slack.com/services/new/bot) to get a slack api token.
-2. Set the `SLACK_API_TOKEN`, `PIAZZA_BASE_URL`, and (if using Events API), `SLACK_SIGNING_SECRET` environment variables (or set them manually in `config.js`, just be sure not to commit this file!).
-3. `npm install && npm start`
-4. Try it out on a slack channel!
+### Create Slack App
+
+1. Go to https://api.slack.com/apps, create a new App, and connect it to the workspace of your choice.
+1. Add a bot user to your app.
+1. Install your app to your workspace in its current state (in order to generate access tokens).
+1. Go to "Install App" to find your Bot User OAuth access token. This will be the `SLACK_API_TOKEN` used by the Heroku app.
+1. Go to "Basic Information" to find your Signing Secret. This will be the `SIGNING_SECRET` used by the Heroku app.
+
+### Set up Heroku App
+
+1. Click the "Deploy to Heroku" button and choose a name for your Heroku app.
+1. Go to "Settings" and add the following environment variables:
+- `SLACK_API_TOKEN`: as mentioned above
+- `SLACK_SIGNING_SECRET`: as mentioned above
+- `PIAZZA_BASE_URL`: the URL of your Piazza class
+
+### Link Slack Events to the Heroku App
+
+1. Go to Event Subscriptions, enable events, and connect it to your Heroku app's url. The path for events is `/slack/events`.
+1. Add the following event subscriptions:
+- `message.channels`
+- `message.groups`
+- `message.im`
+- `message.mpim`
+
 
 Real-Time Messaging API vs. Events API
 --------------------------------------

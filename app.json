@@ -1,0 +1,30 @@
+{
+  "name": "Piazza Link Bot",
+  "author": "Ben Reeves",
+  "logo": "https://images-na.ssl-images-amazon.com/images/I/712ey5%2Bl2%2BL._SY355_.png",
+  "description": "Simple slackbot for responding to messages containing a Piazza post number.",
+  "repository": "https://github.com/BGR360/piazza-link-bot",
+  "keywords": [
+    "slack",
+    "piazza",
+    "slackbot",
+    "bot",
+    "university",
+    "productivity"
+  ],
+  "env": {
+    "SLACK_API_TOKEN": {
+            "description": "Slack API access token.",
+            "required": true
+    },
+    "SLACK_SIGNING_SECRET": {
+            "description": "Signing secret for your Slack app.",
+            "required": true
+    },
+    "PIAZZA_BASE_URL": {
+            "description": "The URL of your Piazza class.",
+            "required": true,
+            "value": "https://piazza.com/class/CLASS_NOT_SET"
+    }
+  }
+}
