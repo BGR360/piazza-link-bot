@@ -15,25 +15,26 @@ Full instructions
 1. Go to https://api.slack.com/apps, create a new App, and connect it to the workspace of your choice.
 1. Add a bot user to your app.
 1. Install your app to your workspace in its current state (in order to generate access tokens).
-1. Go to "Install App" to find your Bot User OAuth access token. This will be the `SLACK_API_TOKEN` used by the Heroku app.
+1. Go to "OAuth and Permissions" to find your Bot User OAuth access token. This will be the `SLACK_API_TOKEN` used by the Heroku app.
 1. Go to "Basic Information" to find your Signing Secret. This will be the `SIGNING_SECRET` used by the Heroku app.
 
 ### Set up Heroku App
 
 1. Click the "Deploy to Heroku" button and choose a name for your Heroku app.
-1. Go to "Settings" and add the following environment variables:
-- `SLACK_API_TOKEN`: as mentioned above
-- `SLACK_SIGNING_SECRET`: as mentioned above
-- `PIAZZA_BASE_URL`: the URL of your Piazza class
+1. Fill in all of the required environment variables (e.g. slack api token, piazza base url).
+1. Deploy the app.
 
 ### Link Slack Events to the Heroku App
 
 1. Go to Event Subscriptions, enable events, and connect it to your Heroku app's url. The path for events is `/slack/events`.
-1. Add the following event subscriptions:
+1. Add the following **Bot** event subscriptions:
 - `message.channels`
 - `message.groups`
 - `message.im`
 - `message.mpim`
+1. Reinstall the app
+
+**Finally, in your Slack workspace, invite the bot user to any channels you wish it to have access to.**
 
 
 Real-Time Messaging API vs. Events API
