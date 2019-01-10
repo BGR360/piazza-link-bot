@@ -1,17 +1,19 @@
 /* vim: set ft=javascript ts=2 et sw=2 tw=80: */
+const process = require('process');
+
 var config = {
-  slack_api_token: 'xxxx-xxxxxxxxx-xxx',
+  slack_api_token: process.env['SLACK_API_TOKEN'],
 
   // The URL of your Piazza class.
-  piazza_base_url: 'https://piazza.com/class/xxxxxxxxxx',
+  piazza_base_url: process.env['PIAZZA_BASE_URL'],
 
   // Whether or not to use the Slack Real-Time Messaging API instead of the Events API.
-  use_rtm: true,
+  use_rtm: process.env['USE_RTM'] || false,
 
   // If using the Events API, then configure the following:
   events: {
-    port: 8888,
-    signing_secret: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+    port: process.env['PORT'] || 8888,
+    signing_secret: process.env['SLACK_SIGNING_SECRET']
   },
 
   /*** No need to modify anything below this ***/
