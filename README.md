@@ -32,7 +32,7 @@ Full instructions
 - `message.groups`
 - `message.im`
 - `message.mpim`
-1. Reinstall the app
+1. Reinstall the Slack app. The access tokens should remain the same.
 
 **Finally, in your Slack workspace, invite the bot user to any channels you wish it to have access to.**
 
