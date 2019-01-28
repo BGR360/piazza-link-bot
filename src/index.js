@@ -1,10 +1,12 @@
 /* vim: set ft=javascript ts=2 et sw=2 tw=80: */
 var config = require('./config');
 var RegexBot = require('./regexbot');
+var RetryFilter = require('./retryfilter');
 var randomiser = function (max) {
   return Math.floor(Math.random() * max);
 };
 var regexbot = new RegexBot(config, randomiser);
+var retryFilter = new RetryFilter(config);
 
 const { RTMClient, WebClient, ErrorCode } = require('@slack/client');
 const { createEventAdapter } = require('@slack/events-api');
@@ -43,10 +45,21 @@ client.on('message', (message) => {
 
   console.log('Accepted a message: ' + JSON.stringify(message));
 
-  regexbot.respond(message.text, (reply) => {
-    console.log('Responding with: ' + reply);
-    postMessage({ channel: message.channel, text: reply, as_user: true });
-  });
+  function messageOkay (message) {
+    // Make the retry filter remember this message
+    retryFilter.addMessage(message);
+
+    regexbot.respond(message.text, (reply) => {
+      console.log('Responding with: ' + reply);
+      postMessage({ channel: message.channel, text: reply, as_user: true });
+    });
+  };
+
+  function messageIsDuplicate (message) {
+    console.log('Message is a duplicate');
+  }
+
+  retryFilter.filter(message, messageOkay, messageIsDuplicate);
 });
 
 client.on('error', console.error);

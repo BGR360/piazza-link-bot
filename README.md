@@ -9,8 +9,15 @@ Based on [regexbot](https://github.com/sjmelia/regexbot) by sjmelia.
 
 ![Example image](https://i.gyazo.com/3fbcb71b81845b5ca65cef08af1334d8.png)
 
+
+Got an out-of-date deployment?
+------------------------------
+
+Go to [HOW-TO-UPDATE.md](HOW_TO_UPDATE.md) for instructions on how to update your deployment to the latest version.
+
+
 Full instructions
------
+-----------------
 
 ### Create Slack App
 

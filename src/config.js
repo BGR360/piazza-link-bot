@@ -16,11 +16,14 @@ var config = {
     signing_secret: process.env['SLACK_SIGNING_SECRET']
   },
 
-  /*** No need to modify anything below this ***/
+  /** No need to modify anything below this **/
 
   regexes: [],
 
   schedules: [],
+
+  // Number of message ids to keep in memory in order to prevent duplicate replies.
+  retryMemory: process.env['RETRY_MEMORY'] || 100,
 
   build: function (id) {
     this.regexes.push({ regex: /@(\d+)/g, message: this.piazza_base_url + '?cid=[1]' });
