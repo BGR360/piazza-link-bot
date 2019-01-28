@@ -25,6 +25,10 @@
             "description": "The URL of your Piazza class.",
             "required": true,
             "value": "https://piazza.com/class/CLASS_NOT_SET"
+    },
+    "RETRY_MEMORY": {
+            "description": "Number of message ids to hold in memory to prevent duplicate messages (linear search involved) (default=100)",
+            "required": false
     }
   }
 }
