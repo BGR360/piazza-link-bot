@@ -28,8 +28,11 @@
     },
     "REPLY_AS_THREAD": {
             "description": "Should the bot reply as a thread? Leave empty for no, put any value for yes.",
-            "required": false,
-            "value": "LEAVE EMPTY FOR NO, PUT ANY VALUE FOR YES"
+            "required": false
     },
+    "RETRY_MEMORY": {
+            "description": "Number of message ids to hold in memory to prevent duplicate messages (linear search involved) (default=100)",
+            "required": false
+    }
   }
 }

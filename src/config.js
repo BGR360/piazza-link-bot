@@ -27,6 +27,9 @@ var config = {
 
   schedules: [],
 
+  // Number of message ids to keep in memory in order to prevent duplicate replies.
+  retryMemory: process.env['RETRY_MEMORY'] || 100,
+
   build: function (id) {
     this.regexes.push({ regex: /@(\d+)/g, message: this.piazza_base_url + '?cid=[1]' });
   }

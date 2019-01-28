@@ -1,10 +1,12 @@
 /* vim: set ft=javascript ts=2 et sw=2 tw=80: */
 var config = require('./config');
 var RegexBot = require('./regexbot');
+var RetryFilter = require('./retryfilter');
 var randomiser = function (max) {
   return Math.floor(Math.random() * max);
 };
 var regexbot = new RegexBot(config, randomiser);
+var retryFilter = new RetryFilter(config);
 
 const { RTMClient, WebClient, ErrorCode } = require('@slack/client');
 const { createEventAdapter } = require('@slack/events-api');
@@ -43,25 +45,35 @@ client.on('message', (message) => {
 
   console.log('Accepted a message: ' + JSON.stringify(message));
 
-  regexbot.respond(message.text, (reply) => {
-    console.log('Responding with: ' + reply);
+  function messageOkay (message) {
+    // Make the retry filter remember this message
+    retryFilter.addMessage(message);
 
-    var replyMessage = {
-      channel: message.channel,
-      text: reply,
-      as_user: true
-    };
+    regexbot.respond(message.text, (reply) => {
+      console.log('Responding with: ' + reply);
 
-    // If bot is configured to reply as a thread, or if the message that 
-    // triggered the bot was already a threaded reply, then add a 'thread_ts'
-    // so that the bot replies inside the thread.
-    if (config.reply_as_thread || message.thread_ts !== undefined) {
-      console.log("has it!")
-      replyMessage.thread_ts = message.thread_ts || message.ts;
-    }
+      var replyMessage = {
+        channel: message.channel,
+        text: reply,
+        as_user: true
+      };
 
-    postMessage(replyMessage);
-  });
+      // If bot is configured to reply as a thread, or if the message that
+      // triggered the bot was already a threaded reply, then add a 'thread_ts'
+      // so that the bot replies inside the thread.
+      if (config.reply_as_thread || message.thread_ts !== undefined) {
+        replyMessage.thread_ts = message.thread_ts || message.ts;
+      }
+
+      postMessage(replyMessage);
+    });
+  };
+
+  function messageIsDuplicate (message) {
+    console.log('Message is a duplicate');
+  }
+
+  retryFilter.filter(message, messageOkay, messageIsDuplicate);
 });
 
 client.on('error', console.error);
