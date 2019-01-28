@@ -25,6 +25,11 @@
             "description": "The URL of your Piazza class.",
             "required": true,
             "value": "https://piazza.com/class/CLASS_NOT_SET"
-    }
+    },
+    "REPLY_AS_THREAD": {
+            "description": "Should the bot reply as a thread? Leave empty for no, put any value for yes.",
+            "required": false,
+            "value": "LEAVE EMPTY FOR NO, PUT ANY VALUE FOR YES"
+    },
   }
 }
