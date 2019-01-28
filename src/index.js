@@ -51,7 +51,21 @@ client.on('message', (message) => {
 
     regexbot.respond(message.text, (reply) => {
       console.log('Responding with: ' + reply);
-      postMessage({ channel: message.channel, text: reply, as_user: true });
+
+      var replyMessage = {
+        channel: message.channel,
+        text: reply,
+        as_user: true
+      };
+
+      // If bot is configured to reply as a thread, or if the message that
+      // triggered the bot was already a threaded reply, then add a 'thread_ts'
+      // so that the bot replies inside the thread.
+      if (config.reply_as_thread || message.thread_ts !== undefined) {
+        replyMessage.thread_ts = message.thread_ts || message.ts;
+      }
+
+      postMessage(replyMessage);
     });
   };
 

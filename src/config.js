@@ -7,6 +7,11 @@ var config = {
   // The URL of your Piazza class.
   piazza_base_url: process.env['PIAZZA_BASE_URL'],
 
+  // Should the bot reply as a thread? If not, just sends a message to the channel.
+  // If the message that triggers the bot is already in a thread, then the bot
+  // will always respond to that thread, no matter the value of this setting.
+  reply_as_thread: process.env['REPLY_AS_THREAD'] || false,
+
   // Whether or not to use the Slack Real-Time Messaging API instead of the Events API.
   use_rtm: process.env['USE_RTM'] || false,
 
